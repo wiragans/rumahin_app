@@ -1,5 +1,5 @@
 # RumahinApp Source Code
-Aplikasi ini digunakan untuk pemilihan rumah tinggal dengan dibekali teknologi Augmented Reality dan terimplementasi metode Simple Additive Weighting (SAW).
+Aplikasi berbasis Smartphone Android ini digunakan untuk pemilihan rumah tinggal dengan dibekali teknologi Augmented Reality (AR) dan terimplementasi metode Simple Additive Weighting (SAW).
 
 Copyright 2021 by Wira Dwi Susanto. All rights reserved.
 Dilarang memplagiat program ini.
@@ -16,3 +16,14 @@ Angular Developer
 Dan third-party library / software lainnya yang digunakan dalam pengembangan aplikasi ini.
 
 All rights reserved to their respective owners.
+
+Pastikan sudah terinstall pada sistem Anda:
+
+1. Ionic 5+
+2. Angular 10+
+3. PHP 7.4
+4. Install ThreeJS & ThreeAR melalui NPM
+5. Update Android WebView ke versi terbaru di Google Playstore agar Augmented Reality (AR) dapat berjalan dengan baik.
+
+Dokumentasi ThreeAR: https://github.com/JamesLMilner/THREEAR
+Dokumentasi ThreeJS: https://threejs.org/docs/
