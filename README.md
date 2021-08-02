@@ -13,7 +13,8 @@ ThreeJS Developer
 ThreeAR Developer
 Ionic Developer
 Angular Developer
-Dan third-party library / software lainnya yang digunakan dalam pengembangan aplikasi ini.
+Rumah.com
+Dan third-party library / software / resource lainnya yang digunakan dalam pengembangan aplikasi ini.
 
 All rights reserved to their respective owners.
 
