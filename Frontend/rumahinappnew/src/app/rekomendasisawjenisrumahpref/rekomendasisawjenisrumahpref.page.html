@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Preferensi Jenis Rumah (Properti)</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModalPrefJenisRumah()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+    </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <br><br>
+  <ion-item>
+    <ion-label>Tipe/Jenis Katalog Rumah</ion-label>
+    <ion-select interface="action-sheet" class="ion-select" placeholder="Pilih Tipe/Jenis Katalog" [(ngModel)]="catalogType" (ngModelChange)="onCatalogType($event)">
+      <ion-select-option *ngFor="let dataTipeKatalog of arrayTipeKatalogRumah; let i = index" value="{{ dataTipeKatalog.kodeTipeRumah }}">{{ dataTipeKatalog.shortName }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <div class="ion-text-center">
+    <br>
+    <ion-button style="width: 100%;" (click)="savePreferenceButton()" [disabled]="!catalogType?.trim()">SIMPAN PREFERENSI</ion-button>
+  </div>
+
+</ion-content>

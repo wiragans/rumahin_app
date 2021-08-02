@@ -1,0 +1,106 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title style="font-size: 14px; margin-top: 10px;">
+      <ion-skeleton-text animated style="width: 50%; display: inline-block;" *ngIf="!profileLoaded"></ion-skeleton-text><b *ngIf="profileLoaded">{{ namaLengkap.toUpperCase() }}</b>
+      <ion-icon style="font-size: 25px; float: right; margin-left: 15px; margin-top: -2px;" name="notifications-outline" [routerLink]="['/notificationarea']"></ion-icon>
+      <!--<ion-icon style="font-size: 25px; float: right; margin-left: 15px; margin-top: -2px;" name="mail-outline" [routerLink]="['/messagearea']"></ion-icon>-->
+      <ion-icon style="font-size: 25px; float: right; margin-left: 15px; margin-top: -2px;" name="storefront-outline" [routerLink]="['/katalogmanagementmenu']"></ion-icon>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Akun</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<div class="ion-padding custom-skeleton" *ngIf="!profileLoaded">
+    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    <ion-skeleton-text animated></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+</div>
+
+<div class="ion-padding custom-skeleton" *ngIf="!profileLoaded">
+  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+  <ion-skeleton-text animated></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+</div>
+
+<div class="ion-padding custom-skeleton" *ngIf="!profileLoaded">
+  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+  <ion-skeleton-text animated></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+</div>
+
+<div class="ion-padding custom-skeleton" *ngIf="!profileLoaded">
+  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+  <ion-skeleton-text animated></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+</div>
+
+<div class="ion-padding custom-skeleton" *ngIf="!profileLoaded">
+  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+  <ion-skeleton-text animated></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+</div>
+
+<div class="loginPageContainer" *ngIf="profileLoaded" style="margin-top: 50px; margin-bottom: 50px;">
+<form>
+<h6 style="text-align: center; font-weight: bold;">PENGATURAN AKUN (PROFILE SERVICE)</h6><br>
+<ion-item>
+  <ion-label position="floating">Nama Lengkap</ion-label>
+  <ion-input type="text" name="namaLengkapTemp" id="namaLengkapTemp" [(ngModel)]="namaLengkapTemp" maxlength="64"></ion-input>
+</ion-item>
+<div><small style="color: red; text-align: justify; margin-left: 10px; font-weight: bold;">{{ namaLengkapError }}</small></div>
+<br>
+<ion-item>
+  <ion-label position="floating">Email</ion-label>
+  <ion-input type="email" name="email" id="email" [(ngModel)]="email" maxlength="64" [email]="true"></ion-input>
+</ion-item>
+<div><small style="color: red; text-align: justify; margin-left: 10px; font-weight: bold;">{{ emailError }}</small></div>
+<br>
+<ion-item>
+  <ion-label position="floating">Password Baru (Kosongkan jika tidak diubah)</ion-label>
+  <ion-input type="password" name="newPassword" id="newPassword" [(ngModel)]="newPassword" maxlength="32"></ion-input>
+</ion-item>
+<div><small style="color: red; text-align: justify; margin-left: 10px; font-weight: bold;">{{ newPasswordError }}</small></div>
+<br>
+<ion-item>
+  <ion-label position="floating">Nomor WhatsApp (WA)</ion-label>
+  <ion-input type="text" name="nomorWA" id="nomorWA" [(ngModel)]="nomorWA" maxlength="20"></ion-input>
+</ion-item>
+<div><small style="color: red; text-align: justify; margin-left: 10px; font-weight: bold;">{{ waNumberError }}</small></div>
+<br>
+<ion-item>
+  <ion-label position="floating">Alamat Lengkap</ion-label>
+  <ion-textarea style="resize: vertical; max-height: 200px;" name="alamat" id="alamat" [(ngModel)]="alamat" maxlength="255"></ion-textarea>
+</ion-item>
+<div><small style="color: red; text-align: justify; margin-left: 10px; font-weight: bold;">{{ alamatError }}</small></div>
+<br>
+<ion-item>
+  <ion-label position="floating">Password Saat Ini (Untuk Verifikasi)</ion-label>
+  <ion-input type="password" name="currentPassword" id="currentPassword" [(ngModel)]="currentPassword" maxlength="32"></ion-input>
+</ion-item>
+<div><small style="color: red; text-align: justify; margin-left: 10px; font-weight: bold;">{{ currentPasswordError }}</small></div>
+<small style="color: red; text-align: justify; margin-left: 10px; font-weight: bold;" [routerLink]="['/forgotpassword/sudahLogin']">Lupa Password? Klik di sini</small><br><br>
+<ion-button size="block" [disabled]="!email?.trim() || !nomorWA || !alamat?.trim() || !currentPassword?.trim()" (click)="simpanProfile()">SIMPAN PERUBAHAN</ion-button><br><br>
+<ion-button color="danger" size="block" (click)="logoutAlert()">LOGOUT DARI AKUN</ion-button><br>
+</form>
+</div>
+</ion-content>

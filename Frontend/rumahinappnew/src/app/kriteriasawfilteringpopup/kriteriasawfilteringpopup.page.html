@@ -1,0 +1,119 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Kriteria</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModalSAWFilteringPopup()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+    </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <br>
+
+  <p style="text-align: justify;">Tambah atau hapus kriteria rumah yang tidak ingin kamu gunakan dalam rekomendasi pencarian kami!</p>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Harga</ion-label>
+      <ion-checkbox slot="start" (ngModelChange)="hargaBoolChange($event)" [(ngModel)]="hargaBool"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Luas Tanah</ion-label>
+      <ion-checkbox slot="start" (ngModelChange)="luasTanahBoolChange($event)" [(ngModel)]="luasTanahBool"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Luas Bangunan</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="luasBangunanBool"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Jumlah Kamar Mandi</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="jumlahKamarMandiBool"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Jumlah Kamar Tidur</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="jumlahKamarTidurBool"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Jumlah Ruang Tamu</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="jumlahRuangTamuBool"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Jumlah Garasi</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="jumlahGarasiBool"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Jumlah Ruang Keluarga</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="jumlahRuangKeluargaBool"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Jumlah Ruang Makan</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="jumlahRuangMakanBool"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Jumlah Dapur</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="jumlahDapurBool"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Jumlah Gudang</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="jumlahGudangBool"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Jumlah Serambi</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="jumlahSerambiBool"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Jumlah Tingkat/Lantai</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="jumlahTingkatBool"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Jumlah Dilihat (Total Tayang)</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="jumlahDilihatBool"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+<br>
+<ion-button style="width: 100%;" (click)="closeModalSAWFilteringPopup()">TUTUP</ion-button>
+
+</ion-content>

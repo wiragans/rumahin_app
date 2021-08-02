@@ -1,0 +1,7 @@
+{
+  "name": "rumahinappnew",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

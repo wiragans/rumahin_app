@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Preferensi Lokasi</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModalPrefLokasi()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+    </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <br>
+  <ion-item style="display: none;">
+    <ion-checkbox color="primary" checked="true" [(ngModel)]="useLocationPref" (ngModelChange)="onUseLocaltionPrefCheckbox($event)"></ion-checkbox>
+    <ion-label style="margin-left: 10px;"> Aktifkan Preferensi Lokasi</ion-label>  
+  </ion-item>
+
+  <div *ngIf="useLocationPref == true">
+
+    <!---->
+
+    <br>
+    <ion-item>
+      <ion-label>Provinsi</ion-label>
+      <div #containerProvinsiID></div>
+      <ion-select interface="action-sheet" placeholder="Pilih Provinsi" [(ngModel)]="provinsiID" (ngModelChange)="onProvinsiSelectBox($event)">
+        <ion-select-option *ngFor="let dataProvinsi of arrayProvinsiData; let i = index" value="{{ dataProvinsi.id }}">{{ dataProvinsi.nama }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <br>
+    <ion-item>
+      <ion-label>Kab/Kota</ion-label>
+      <ion-select interface="action-sheet" placeholder="Pilih Kab/Kota" [disabled]="!provinsiID?.trim()" [(ngModel)]="kabupatenID" (ngModelChange)="onKabupatenSelectBox($event)">
+        <ion-select-option *ngFor="let dataKabupaten of arrayKabupatenData; let i = index" value="{{ dataKabupaten.id }}">{{ dataKabupaten.nama }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <br>
+    <ion-item>
+      <ion-label>Kecamatan</ion-label>
+      <ion-select interface="action-sheet" placeholder="Pilih Kecamatan" [disabled]="!kabupatenID?.trim()" [(ngModel)]="kecamatanID" (ngModelChange)="onKecamatanSelectBox($event)">
+        <ion-select-option *ngFor="let dataKecamatan of arrayKecamatanData; let i = index" value="{{ dataKecamatan.id }}">{{ dataKecamatan.nama }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <br>
+    <ion-item>
+      <ion-label>Desa/Kel</ion-label>
+      <ion-select interface="action-sheet" placeholder="Pilih Desa/Kel" [disabled]="!kecamatanID?.trim()" [(ngModel)]="desaID" (ngModelChange)="onDesaSelectBox($event)">
+        <ion-select-option *ngFor="let dataDesa of arrayDesaData; let i = index" value="{{ dataDesa.id }}">{{ dataDesa.nama }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <br>
+    <small style="text-align: justify; margin-left: 10px;"><i>* Rumpang provinsi wajib diisi, sedangkan yang lainnya tidak wajib diisi.</i></small>
+
+    <!---->
+
+  </div>
+
+  <div class="ion-text-center">
+    <br>
+    <ion-button style="width: 100%;" (click)="simpanPreferensiLokasiButton()" [disabled]="!provinsiID?.trim() && !kabupatenID?.trim() && !kecamatanID?.trim() && !desaID?.trim() && useLocationPref == true">SIMPAN PREFERENSI</ion-button>
+  </div>
+
+</ion-content>

@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="dashboardPage/home"></ion-back-button><ion-title><b>Notification Area</b></ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+<div class="loginPageContainer" style="margin-top: 50px; margin-bottom: 50px;">
+<form>
+<h6 style="text-align: center; font-weight: bold;">NOTIFICATION AREA</h6><br>
+
+<div class="ion-padding custom-skeleton" *ngIf="!pengumumanLoaded">
+  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+  <ion-skeleton-text animated></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+</div>
+
+<div class="ion-padding custom-skeleton" *ngIf="!pengumumanLoaded">
+  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+  <ion-skeleton-text animated></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+</div>
+
+<div class="ion-padding custom-skeleton" *ngIf="!pengumumanLoaded">
+  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+  <ion-skeleton-text animated></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+</div>
+
+<div *ngIf="noPengumumanFound">
+<img class="loginPageRumahIcon" src="../../assets/icon/terlantar01.png" style="width: 60%; height: auto;">
+<p style="text-align: center; font-weight: bold;">Wah belum ada notifikasi untukmu nih :)</p>
+</div>
+
+<div *ngIf="!noPengumumanFound">
+<p *ngFor="let bacaPengumuman of arrayFix; let i = index" style="border-bottom: solid grey 0.5px; padding: 10px;">
+<b>{{ bacaPengumuman.titlePengumuman }}</b> <ion-icon *ngIf="bacaPengumuman.collapsed" name="add-outline" style="float: right;" (click)="bacaPengumuman.collapsed = false"></ion-icon><ion-icon *ngIf="!bacaPengumuman.collapsed" name="remove-outline" style="float: right;" (click)="bacaPengumuman.collapsed = true"></ion-icon>
+<br>
+<small>{{ bacaPengumuman.realDate }}</small><br><br>
+<mat-card-content *ngIf="!bacaPengumuman.collapsed">{{ bacaPengumuman.contentPengumuman }}</mat-card-content>
+</p>
+</div>
+</form>
+</div>
+</ion-content>

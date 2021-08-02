@@ -1,0 +1,103 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title style="font-size: 14px; margin-top: 10px;">
+      <ion-skeleton-text animated style="width: 50%; display: inline-block;" *ngIf="!profileLoaded"></ion-skeleton-text><b *ngIf="profileLoaded">{{ namaLengkap.toUpperCase() }}</b>
+      <ion-icon style="font-size: 25px; float: right; margin-left: 15px; margin-top: -2px;" name="notifications-outline" [routerLink]="['/notificationarea']"></ion-icon>
+      <!--<ion-icon style="font-size: 25px; float: right; margin-left: 15px; margin-top: -2px;" name="mail-outline" [routerLink]="['/messagearea']"></ion-icon>-->
+      <ion-icon style="font-size: 25px; float: right; margin-left: 15px; margin-top: -2px;" name="storefront-outline" [routerLink]="['/katalogmanagementmenu']"></ion-icon>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Bookmark</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="loginPageContainer" style="margin-top: 50px; margin-bottom: 50px;">
+    <h6 style="text-align: center; font-weight: bold;">BOOKMARK KATALOG LISTS</h6><br>
+    
+    <ion-searchbar type="text" name="search" [(ngModel)]="searchBookmarkKatalog" autocomplete="off"></ion-searchbar>
+
+    <div *ngIf="noKatalogFound && statusApiBookmark">
+      <img class="loginPageRumahIcon" src="../../assets/icon/terlantar01.png" style="width: 60%; height: auto;">
+      <p style="text-align: center; font-weight: bold;">Wah belum ada bookmark katalogmu nih :)</p>
+    </div>
+
+    <div *ngIf="!statusApiBookmark && bookmarkLoaded">
+      <img class="loginPageRumahIcon" src="../../assets/icon/terlantar01.png" style="width: 60%; height: auto;">
+      <p style="text-align: center; font-weight: bold;">Wah, terjadi kesalahan saat mengambil data bookmark katalogmu. Coba periksa kembali koneksi internetmu dah refresh halaman ini ya :)</p>
+    </div>
+
+    <div *ngIf="!noKatalogFound" style="display: none;">
+
+    <div class="containerRumah">
+      <img src="https://miro.medium.com/max/875/0*C3QiqyaCfpHwCfr5">
+      <div class="isiContainerRumahText">
+        <p class="rumahText"><b>Rumah Bagus Sekali</b></p>
+        <p class="rumahText">Jalan Panglima Sudirman No. 25 Pati</p>
+        <p class="rumahText" style="margin-top: -10px;"><b>Luas Bangunan:</b> 250m</p>
+        <p class="rumahText" style="margin-top: -10px;"><b>Luas Tanah:</b> 250m</p>
+        <div class="badgePriceRumah">Rp. 250.000.000</div><br>
+        <p style="text-align: center; margin-top: -4px;"><b>Lihat Detail katalog</b></p>
+        <div style="border-bottom: solid grey 0.5px; margin-top: 20px;"></div>
+      </div>
+    </div>
+
+    <div class="containerRumah">
+      <img src="https://miro.medium.com/max/875/0*C3QiqyaCfpHwCfr5">
+      <div class="isiContainerRumahText">
+        <p class="rumahText"><b>Rumah Bagus Sekali</b></p>
+        <p class="rumahText">Jalan Panglima Sudirman No. 25 Pati</p>
+        <p class="rumahText" style="margin-top: -10px;"><b>Luas Bangunan:</b> 250m</p>
+        <p class="rumahText" style="margin-top: -10px;"><b>Luas Tanah:</b> 250m</p>
+        <div class="badgePriceRumah">Rp. 250.000.000</div><br>
+        <p style="text-align: center; margin-top: -4px;"><b>Lihat Detail katalog</b></p>
+        <div style="border-bottom: solid grey 0.5px; margin-top: 20px;"></div>
+      </div>
+    </div>
+
+    </div>
+
+    <!-- LOOPING BOOKMARK KATALOG API -->
+
+    <div class="ion-padding custom-skeleton" *ngIf="!bookmarkLoaded">
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    </div>
+
+    <div *ngIf="!noKatalogFound">
+
+      <div class="containerRumah" *ngFor="let bacaKatalog of arrayDataBookmark | filter:searchBookmarkKatalog; let i = index">
+        <img src="{{ bacaKatalog.katalogImageUrl }}">
+        <div class="isiContainerRumahText">
+          <p class="rumahText"><b>{{ bacaKatalog.katalogName }}</b></p>
+          <p class="rumahText" style="font-size: 12px; margin-bottom: 25px;">Alamat: {{ bacaKatalog.alamat }}</p>
+          <p class="rumahText" style="font-size: 12px; margin-bottom: 25px;" [innerHTML]="descAttr + bacaKatalog.katalogShortDesc"></p>
+          <p class="rumahText" style="margin-top: -10px;"><b>Luas Bangunan:</b> {{ bacaKatalog.luasBangunan }}m²</p>
+          <p class="rumahText" style="margin-top: -10px;"><b>Luas Tanah:</b> {{ bacaKatalog.luasTanah }}m²</p>
+          <div class="badgePriceRumah">{{ bacaKatalog.hargaStr }}</div><br>
+          <p class="rumahText" style="margin-top: 10px; text-align: center; font-weight: bold; display: block;" (click)="deleteBookmark(bacaKatalog.bookmarkListingID)"><ion-icon name="trash-outline"></ion-icon> Hapus Boomark</p>
+          <p style="border-bottom: none grey 0.5px;"></p>
+          <p style="text-align: center; margin-top: -4px; display: block;" (click)="viewKatalog(bacaKatalog.katalogUUID)"><b>Lihat Detail</b></p>
+          <div style="border-bottom: solid grey 0.5px; margin-top: 10px;"></div>
+        </div>
+      </div>
+  
+      </div>
+
+    <!-- END -->
+
+  </div>
+
+  <!--<app-explore-container name="Tab 2 page"></app-explore-container>-->
+</ion-content>

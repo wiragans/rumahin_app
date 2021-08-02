@@ -1,0 +1,76 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title style="font-size: 14px; margin-top: 10px;">
+      <ion-skeleton-text animated style="width: 50%; display: inline-block;" *ngIf="!profileLoaded"></ion-skeleton-text><b *ngIf="profileLoaded">{{ namaLengkap.toUpperCase() }}</b>
+      <ion-icon style="font-size: 25px; float: right; margin-left: 15px; margin-top: -2px;" name="notifications-outline" [routerLink]="['/notificationarea']"></ion-icon>
+      <!--<ion-icon style="font-size: 25px; float: right; margin-left: 15px; margin-top: -2px;" name="mail-outline" [routerLink]="['/messagearea']"></ion-icon>-->
+      <ion-icon style="font-size: 25px; float: right; margin-left: 15px; margin-top: -2px;" name="storefront-outline" [routerLink]="['/katalogmanagementmenu']"></ion-icon>
+      <!--<ion-icon style="font-size: 25px; float: right; margin-left: 15px; margin-top: -2px;" name="storefront-outline" [routerLink]="['/addkatalogpage']"></ion-icon>-->
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="loginPageContainer" style="margin-top: 50px;">
+
+    <div>
+
+      <h3 style="text-align: center;"><b>QUICK SEARCH</b></h3><br>
+
+      <ion-item>
+        <ion-label position="stacked">Minimal Harga</ion-label>
+        <ion-input type="number" [(ngModel)]="minimalHarga"></ion-input>
+      </ion-item>
+
+      <br>
+      <ion-item>
+        <ion-label position="stacked">Maksimal Harga</ion-label>
+        <ion-input type="number" [(ngModel)]="maksimalHarga"></ion-input>
+      </ion-item>
+
+      <br>
+      <ion-item>
+        <ion-label>Beli/Sewa</ion-label>
+        <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Pilih satu" [(ngModel)]="buyOrRent">
+          <ion-select-option value="0">Beli</ion-select-option>
+          <ion-select-option value="1">Sewa</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <br>
+      <ion-item>
+        <ion-label>Baru/Second</ion-label>
+        <ion-select [interfaceOptions]="customPopoverOptions2" interface="popover" placeholder="Pilih satu" [(ngModel)]="newOrSecond">
+          <ion-select-option value="0">Baru</ion-select-option>
+          <ion-select-option value="1">Second</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <br>
+      <ion-item>
+        <ion-label>Gunakan Preferensi</ion-label>
+        <ion-checkbox slot="end" color="primary" [(ngModel)]="usePreferensi" (ngModelChange)="usePreferensiChange($event)" checked="false"></ion-checkbox>
+      </ion-item>
+
+      <div *ngIf="usePreferensi == true">
+      <br>
+        <ion-label (click)="openModalPrefLokasi()"><ion-icon name="locate"></ion-icon> Buka Preferensi Lokasi/Wilayah<br></ion-label><small style="margin-left: 20px;"><i>{{ locationPref }}</i></small><br><br>
+        <ion-label (click)="openModalPrefJenisRumah()"><ion-icon name="home"></ion-icon> Buka Preferensi Jenis Rumah<br></ion-label><small style="margin-left: 20px;"><i>{{ jenisRumahPref }}</i></small><br>
+      </div>
+
+        <!--<br><ion-button style="width: 100%;" (click)="cariKatalogRumahButton()" [disabled]="!buyOrRent?.trim() || !newOrSecond?.trim() || !locationPref?.trim() || !jenisRumahPref?.trim()">CARI KATALOG RUMAH</ion-button><p style="border-bottom: solid grey 0.5px;"></p>-->
+
+        <br><ion-button style="width: 100%;" (click)="cariKatalogRumahButton()" [disabled]="!buyOrRent?.trim() || !newOrSecond?.trim() || !triggerAllowButton">CARI KATALOG RUMAH</ion-button><p style="border-bottom: solid grey 0.5px;"></p>
+        
+      <p style="text-align: center;">ATAU gunakan fitur pencarian menggunakan kata kunci / kriteria rekomendasi di bawah ini.</p><br>
+
+      <div class="ion-text-center">
+        <ion-icon style="font-size: 30px; margin-right: 20px;" name="search-outline" [routerLink]="['/katalog-search-query-page']"></ion-icon> <ion-icon style="font-size: 30px;" [routerLink]="['/rekomendasisaw']" name="help-outline"></ion-icon>
+      </div>
+
+    </div>
+
+  </div>
+
+</ion-content>

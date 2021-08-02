@@ -1,0 +1,160 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="dashboardPage/home"></ion-back-button><ion-title><b>Recommendation Search</b></ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="loginPageContainer" style="margin-top: 50px; margin-bottom: 50px;">
+      <h6 style="text-align: center; font-weight: bold;">SEARCH BY RECOMMENDATION</h6><br>
+      <p style="text-align: center; font-weight: bold;">Pusing menentukan rumah yang Anda mau? Butuh rekomendasi? Tenang!! kami dapat membantu Anda<br>Silakan isi kriteria yang diinginkan</p><br>
+    
+      <!--
+      <div style="border: dashed grey 0.5px; padding: 10px;">
+        * Keterangan:<br>1. Min = Sedikit/Rendah, Max = Banyak/Tinggi<br>2. Apabila kriteria tersebut dirasa beban, silakan pilih "Min" dan tentukan tingkat prioritas yang diinginkan (rentang 1 - 5)<br>3. Apabila kriteria tersebut dirasa bukan beban (menguntungkan), silakan pilih "Max" dan tentukan tingkat prioritas yang diinginkan (rentang 1 - 5)<br>4. Anda tidak perlu memasukkan value/nilai pasti seperti harga, luas tanah, luas bangunan, dan sebagainya. Sistem kami akan menampilkan rekomendasi rumah yang mungkin Anda suka sesuai kriteria rumah dan tingkat prioritas yang diinputkan.
+      </div>-->
+
+      <!--<p style="border-bottom: solid grey 0.5px;"></p>-->
+
+      <div *ngIf="dataSAWNotFound" class="ion-text-center">
+      <ion-badge color="danger">Harap tentukan kriteria rumah!</ion-badge><br><br>
+      </div>
+
+      <div class="ion-text-center">
+      <ion-button (click)="bukaFilterKriteria()">ATUR FILTER KRITERIA</ion-button>
+      </div>
+
+      <p *ngIf="dataSAWNotFound == false" style="text-align: justify;">Keterangan Prioritas: <br>1 = Tidak Diprioritaskan<br>2 = Kurang Diprioritaskan<br>3 = Cukup Diprioritaskan<br>4 = Diprioritaskan<br>5 = Sangat Diprioritaskan</p>
+
+      <div *ngIf="hargaUsedByUser == true">
+      <p><b>Prioritas Harga:</b></p>
+      <div [ngClass]="{ 'btnRecommendationSelected': !hargaIsBenefit,  'btnRecommendationNotSelected': hargaIsBenefit}" (click)="hargaIsBenefit = false; controlSAWFilter()">Murah</div> <div [ngClass]="{ 'btnRecommendationSelected': hargaIsBenefit,  'btnRecommendationNotSelected': !hargaIsBenefit}" (click)="hargaIsBenefit = true; controlSAWFilter()">Mahal</div> Prioritas (1-5): <input type="number" class="inputPriority" maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" [(ngModel)]="harga" (ngModelChange)="hargaChange($event)" value="" /><br>
+      </div>
+
+      <div *ngIf="luasTanahUsedByUser == true">
+      <p><b>Prioritas Luas Tanah:</b></p>
+      <div [ngClass]="{ 'btnRecommendationSelected': !luasTanahIsBenefit,  'btnRecommendationNotSelected': luasTanahIsBenefit}" (click)="luasTanahIsBenefit = false; controlSAWFilter()">Sempit</div> <div [ngClass]="{ 'btnRecommendationSelected': luasTanahIsBenefit,  'btnRecommendationNotSelected': !luasTanahIsBenefit}" (click)="luasTanahIsBenefit = true; controlSAWFilter()">Luas</div> Prioritas (1-5): <input type="number" class="inputPriority" maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" [(ngModel)]="luasTanah" (ngModelChange)="luasTanahChange($event)" value="" /><br>
+      </div>
+
+      <div *ngIf="luasBangunanUsedByUser == true">
+      <p><b>Prioritas Luas Bangunan:</b></p>
+      <div [ngClass]="{ 'btnRecommendationSelected': !luasBangunanIsBenefit,  'btnRecommendationNotSelected': luasBangunanIsBenefit}" (click)="luasBangunanIsBenefit = false; controlSAWFilter()">Sempit</div> <div [ngClass]="{ 'btnRecommendationSelected': luasBangunanIsBenefit,  'btnRecommendationNotSelected': !luasBangunanIsBenefit}" (click)="luasBangunanIsBenefit = true; controlSAWFilter()">Luas</div> Prioritas (1-5): <input type="number" class="inputPriority" maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" [(ngModel)]="luasBangunan" (ngModelChange)="luasBangunanChange($event)" value="" /><br>
+      </div>
+
+      <div *ngIf="jumlahKamarMandiUsedByUser == true">
+      <p><b>Prioritas Jumlah Kamar Mandi:</b></p>
+      <div [ngClass]="{ 'btnRecommendationSelected': !jumlahKamarMandiIsBenefit,  'btnRecommendationNotSelected': jumlahKamarMandiIsBenefit}" (click)="jumlahKamarMandiIsBenefit = false; controlSAWFilter()">Dikit</div> <div [ngClass]="{ 'btnRecommendationSelected': jumlahKamarMandiIsBenefit,  'btnRecommendationNotSelected': !jumlahKamarMandiIsBenefit}" (click)="jumlahKamarMandiIsBenefit = true; controlSAWFilter()">Banyak</div> Prioritas (1-5): <input type="number" class="inputPriority" maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" [(ngModel)]="jumlahKamarMandi" (ngModelChange)="jumlahKamarMandiChange($event)" value="" /><br>
+      </div>
+
+      <div *ngIf="jumlahKamarTidurUsedByUser == true">
+      <p><b>Prioritas Jumlah Kamar Tidur:</b></p>
+      <div [ngClass]="{ 'btnRecommendationSelected': !jumlahKamarTidurIsBenefit,  'btnRecommendationNotSelected': jumlahKamarTidurIsBenefit}" (click)="jumlahKamarTidurIsBenefit = false; controlSAWFilter()">Dikit</div> <div [ngClass]="{ 'btnRecommendationSelected': jumlahKamarTidurIsBenefit,  'btnRecommendationNotSelected': !jumlahKamarTidurIsBenefit}" (click)="jumlahKamarTidurIsBenefit = true; controlSAWFilter()">Banyak</div> Prioritas (1-5): <input type="number" class="inputPriority" maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" [(ngModel)]="jumlahKamarTidur" (ngModelChange)="jumlahKamarTidurChange($event)" value="" /><br>
+      </div>
+
+      <div *ngIf="jumlahRuangTamuUsedByUser == true">
+      <p><b>Prioritas Jumlah Ruang Tamu:</b></p>
+      <div [ngClass]="{ 'btnRecommendationSelected': !jumlahRuangTamuIsBenefit,  'btnRecommendationNotSelected': jumlahRuangTamuIsBenefit}" (click)="jumlahRuangTamuIsBenefit = false; controlSAWFilter()">Dikit</div> <div [ngClass]="{ 'btnRecommendationSelected': jumlahRuangTamuIsBenefit,  'btnRecommendationNotSelected': !jumlahRuangTamuIsBenefit}" (click)="jumlahRuangTamuIsBenefit = true; controlSAWFilter()">Banyak</div> Prioritas (1-5): <input type="number" class="inputPriority" maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" [(ngModel)]="jumlahRuangTamu" (ngModelChange)="jumlahRuangTamuChange($event)" value="" /><br>
+      </div>
+
+      <div *ngIf="jumlahGarasiUsedByUser == true">
+      <p><b>Prioritas Jumlah Garasi:</b></p>
+      <div [ngClass]="{ 'btnRecommendationSelected': !jumlahGarasiIsBenefit,  'btnRecommendationNotSelected': jumlahGarasiIsBenefit}" (click)="jumlahGarasiIsBenefit = false; controlSAWFilter()">Dikit</div> <div [ngClass]="{ 'btnRecommendationSelected': jumlahGarasiIsBenefit,  'btnRecommendationNotSelected': !jumlahGarasiIsBenefit}" (click)="jumlahGarasiIsBenefit = true; controlSAWFilter()">Banyak</div> Prioritas (1-5): <input type="number" class="inputPriority" maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" [(ngModel)]="jumlahGarasi" (ngModelChange)="jumlahGarasiChange($event)" value="" /><br>
+      </div>
+
+      <div *ngIf="jumlahRuangKeluargaUsedByUser == true">
+      <p><b>Prioritas Jumlah Ruang Keluarga:</b></p>
+      <div [ngClass]="{ 'btnRecommendationSelected': !jumlahRuangKeluargaIsBenefit,  'btnRecommendationNotSelected': jumlahRuangKeluargaIsBenefit}" (click)="jumlahRuangKeluargaIsBenefit = false; controlSAWFilter()">Dikit</div> <div [ngClass]="{ 'btnRecommendationSelected': jumlahRuangKeluargaIsBenefit,  'btnRecommendationNotSelected': !jumlahRuangKeluargaIsBenefit}" (click)="jumlahRuangKeluargaIsBenefit = true; controlSAWFilter()">Banyak</div> Prioritas (1-5): <input type="number" class="inputPriority" maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" [(ngModel)]="jumlahRuangKeluarga" (ngModelChange)="jumlahRuangKeluargaChange($event)" value="" /><br>
+      </div>
+
+      <div *ngIf="jumlahRuangMakanUsedByUser == true">
+      <p><b>Prioritas Jumlah Ruang Makan:</b></p>
+      <div [ngClass]="{ 'btnRecommendationSelected': !jumlahRuangMakanIsBenefit,  'btnRecommendationNotSelected': jumlahRuangMakanIsBenefit}" (click)="jumlahRuangMakanIsBenefit = false; controlSAWFilter()">Dikit</div> <div [ngClass]="{ 'btnRecommendationSelected': jumlahRuangMakanIsBenefit,  'btnRecommendationNotSelected': !jumlahRuangMakanIsBenefit}" (click)="jumlahRuangMakanIsBenefit = true; controlSAWFilter()">Banyak</div> Prioritas (1-5): <input type="number" class="inputPriority" maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" [(ngModel)]="jumlahRuangMakan" (ngModelChange)="jumlahRuangMakanChange($event)" value="" /><br>
+      </div>
+
+      <div *ngIf="jumlahDapurUsedByUser == true">
+      <p><b>Prioritas Jumlah Dapur:</b></p>
+      <div [ngClass]="{ 'btnRecommendationSelected': !jumlahDapurIsBenefit,  'btnRecommendationNotSelected': jumlahDapurIsBenefit}" (click)="jumlahDapurIsBenefit = false; controlSAWFilter()">Dikit</div> <div [ngClass]="{ 'btnRecommendationSelected': jumlahDapurIsBenefit,  'btnRecommendationNotSelected': !jumlahDapurIsBenefit}" (click)="jumlahDapurIsBenefit = true; controlSAWFilter()">Banyak</div> Prioritas (1-5): <input type="number" class="inputPriority" maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" [(ngModel)]="jumlahDapur" (ngModelChange)="jumlahDapurChange($event)" value="" /><br>
+      </div>
+
+      <div *ngIf="jumlahGudangUsedByUser == true">
+      <p><b>Prioritas Jumlah Gudang:</b></p>
+      <div [ngClass]="{ 'btnRecommendationSelected': !jumlahGudangIsBenefit,  'btnRecommendationNotSelected': jumlahGudangIsBenefit}" (click)="jumlahGudangIsBenefit = false; controlSAWFilter()">Dikit</div> <div [ngClass]="{ 'btnRecommendationSelected': jumlahGudangIsBenefit,  'btnRecommendationNotSelected': !jumlahGudangIsBenefit}" (click)="jumlahGudangIsBenefit = true; controlSAWFilter()">Banyak</div> Prioritas (1-5): <input type="number" class="inputPriority" maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" [(ngModel)]="jumlahGudang" (ngModelChange)="jumlahGudangChange($event)" value="" /><br>
+      </div>
+
+      <div *ngIf="jumlahSerambiUsedByUser == true">
+      <p><b>Prioritas Jumlah Serambi:</b></p>
+      <div [ngClass]="{ 'btnRecommendationSelected': !jumlahSerambiIsBenefit,  'btnRecommendationNotSelected': jumlahSerambiIsBenefit}" (click)="jumlahSerambiIsBenefit = false; controlSAWFilter()">Dikit</div> <div [ngClass]="{ 'btnRecommendationSelected': jumlahSerambiIsBenefit,  'btnRecommendationNotSelected': !jumlahSerambiIsBenefit}" (click)="jumlahSerambiIsBenefit = true; controlSAWFilter()">Banyak</div> Prioritas (1-5): <input type="number" class="inputPriority" maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" [(ngModel)]="jumlahSerambi" (ngModelChange)="jumlahSerambiChange($event)" value="" /><br>
+      </div>
+
+      <div *ngIf="jumlahTingkatUsedByUser == true">
+      <p><b>Prioritas Jumlah Tingkat/Lantai:</b></p>
+      <div [ngClass]="{ 'btnRecommendationSelected': !jumlahTingkatIsBenefit,  'btnRecommendationNotSelected': jumlahTingkatIsBenefit}" (click)="jumlahTingkatIsBenefit = false; controlSAWFilter()">Dikit</div> <div [ngClass]="{ 'btnRecommendationSelected': jumlahTingkatIsBenefit,  'btnRecommendationNotSelected': !jumlahTingkatIsBenefit}" (click)="jumlahTingkatIsBenefit = true; controlSAWFilter()">Banyak</div> Prioritas (1-5): <input type="number" class="inputPriority" maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" [(ngModel)]="jumlahTingkat" (ngModelChange)="jumlahTingkatChange($event)" value="" /><br>
+      </div>
+
+      <div *ngIf="totalViewedUsedByUser == true">
+      <p><b>Prioritas Jumlah Dilihat (Total Tayang):</b></p>
+      <div [ngClass]="{ 'btnRecommendationSelected': !totalViewedIsBenefit,  'btnRecommendationNotSelected': totalViewedIsBenefit}" (click)="totalViewedIsBenefit = false; controlSAWFilter()">Dikit</div> <div [ngClass]="{ 'btnRecommendationSelected': totalViewedIsBenefit,  'btnRecommendationNotSelected': !totalViewedIsBenefit}" (click)="totalViewedIsBenefit = true; controlSAWFilter()">Banyak</div> Prioritas (1-5): <input type="number" class="inputPriority" maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" [(ngModel)]="totalViewed" (ngModelChange)="totalViewedChange($event)" value="" /><br>
+      </div>
+
+      <div *ngIf="dataSAWNotFound == false">
+      <p style="border-bottom: solid grey 0.5px;"></p>
+
+      <ion-item>
+        <ion-checkbox color="primary" checked="false" [(ngModel)]="useFilterTambahanCheckbox" (ngModelChange)="onUseFilterTambahanCheckbox($event)"></ion-checkbox>
+        <ion-label style="margin-left: 10px;"> Gunakan filtering tambahan</ion-label>  
+      </ion-item>
+
+      <div *ngIf="useFilterTambahanCheckbox == true">
+        <br>
+        <ion-label (click)="openModalPrefLokasi()"><ion-icon name="locate"></ion-icon> Preferensi Lokasi/Wilayah<br></ion-label><small style="margin-left: 20px;"><i>{{ locationPref }}</i></small><br><br>
+        <ion-label (click)="openModalPrefJenisRumah()"><ion-icon name="home"></ion-icon> Preferensi Jenis Rumah (Properti)<br></ion-label><small style="margin-left: 20px;"><i>{{ jenisRumahPref }}</i></small><br>
+      </div>
+
+      <p style="border-bottom: solid grey 0.5px;"></p>
+     </div>
+
+      <!--<ion-button *ngIf="datatableShow == false" style="width: 100%;" (click)="showDatatables()">LANJUTKAN</ion-button>-->
+
+      <ion-button *ngIf="!dataSAWNotFound" style="width: 100%; margin-top: 10px;" [disabled]="!totalViewed || !jumlahTingkat || !jumlahSerambi || !jumlahGudang || !jumlahRuangMakan || !jumlahRuangKeluarga || !jumlahGarasi || !jumlahRuangTamu || !jumlahKamarTidur || !jumlahKamarMandi || !luasBangunan || !luasTanah || !harga || dataSAWNotFound" (click)="cariRekomendasiRumahTinggal()">CARI REKOMENDASI</ion-button><br><br>
+
+      <!-- TABLE KETERANGAN -->
+
+      <ngx-datatable *ngIf="datatableShow == true"
+      class="material"
+      [limit]="14" 
+      [rows]="rowNgxTable" 
+      [rowHeight]="50" 
+      [columns]="columnNgxTable"
+      [columnMode]="'force'" 
+      [sortType]="'multi'" 
+      [headerHeight]="50" 
+      [footerHeight]="50">
+      </ngx-datatable>
+
+      <!---->
+
+      <p style="text-align: justify; font-weight: bold; color: red;" *ngIf="errorOthers">Terjadi kesalahan, silakan periksa kembali koneksi internetmu!</p>
+      <div *ngIf="resultAPIRekomendasiRumahTinggalSukses">
+        <p style="text-align: justify; font-weight: bold;" *ngIf="!noKatalogFound">Hasil Berdasarkan Kriteria Rekomendasi:</p>
+        <p style="text-align: justify; font-weight: bold; color: red;" *ngIf="noKatalogFound">Mohon maaf, kami tidak dapat menemukan rekomendasi rumah tinggal yang cocok berdasarkan kriteria yang dikirimkan (CODE: NO_KATALOG_MATCHES)</p>
+
+        <div class="containerRumah" *ngFor="let bacaKatalog of arrayDataRumah; let i = index">
+          <img src="{{ bacaKatalog.thumbnailImageUrl }}">
+          <div class="isiContainerRumahText">
+            <p class="rumahText"><b>{{ bacaKatalog.katalogName }}</b></p>
+            <p class="rumahText" style="font-size: 12px; margin-bottom: 25px;">Alamat: {{ bacaKatalog.alamat }}</p>
+            <p class="rumahText" style="margin-top: -10px;"><b>Luas Bangunan:</b> {{ bacaKatalog.luasBangunan }}m²</p>
+            <p class="rumahText" style="margin-top: -10px;"><b>Luas Tanah:</b> {{ bacaKatalog.luasTanah }}m²</p>
+            <div class="badgePriceRumah">{{ bacaKatalog.price.priceStr }}</div><br>
+            <p style="border-bottom: none grey 0.5px;"></p>
+            <p style="text-align: center; margin-top: -4px; display: block;" (click)="viewKatalog(bacaKatalog.katalogUUID)"><b>Lihat Detail</b></p>
+            <div style="border-bottom: solid grey 0.5px; margin-top: 10px;"></div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+</ion-content>

@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="dashboardPage/home"></ion-back-button><ion-title><b>Cari Katalog Rumah</b></ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-searchbar type="text" name="search" [(ngModel)]="searchKatalogQuery" (ionChange)="executeQuery()" autocomplete="off"></ion-searchbar>
+</ion-header>
+
+<ion-content>
+  <div class="loginPageContainer" style="margin-top: 20px; margin-bottom: 10px;">
+
+    <div class="ion-text-center">
+
+      <ion-spinner name="crescent" *ngIf="isOnLoadingQuery"></ion-spinner>
+
+      <p style="text-align: justify;" [innerHTML]="queryMessageResult"></p>
+
+      <div *ngIf="!isOnLoadingQuery">
+        <div style="margin-left: 4px; margin-bottom: 30px; border-bottom: solid grey 0.5px; margin-left: -10px;" *ngFor="let bacaKatalog of arrayFix; let i = index">
+          <div class="item">
+            <img (click)="katalogViewDetail(bacaKatalog.katalogUUID)" src="{{ bacaKatalog.katalogImageUrl }}"/><div class="hargaBadge">{{ bacaKatalog.priceStr }}</div><br><br>
+            <span (click)="katalogViewDetail(bacaKatalog.katalogUUID)"><b>{{ bacaKatalog.katalogName }}</b></span><br><br>
+            <small (click)="katalogViewDetail(bacaKatalog.katalogUUID)" style="text-align: justify;" [innerHTML]="bacaKatalog.katalogDesc"></small><br><br>
+            <small (click)="katalogViewDetail(bacaKatalog.katalogUUID)" style="text-align: justify;"><b>Alamat:</b> {{ bacaKatalog.alamat }}</small><br>
+            <small (click)="katalogViewDetail(bacaKatalog.katalogUUID)" style="text-align: justify;"><b>Luas Bangunan:</b> {{ bacaKatalog.luasBangunan }}m²</small><br>
+            <small (click)="katalogViewDetail(bacaKatalog.katalogUUID)" style="text-align: justify;"><b>Luas Tanah:</b> {{ bacaKatalog.luasTanah }}m²</small><br><br>
+          </div>
+        </div>
+      </div>
+
+      <!--<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>aaaaaa-->
+      <br><br><br><br><br><br><br><br><br><br><br><br>
+      <ion-infinite-scroll threshold="50px" (ionInfinite)="loadDataNextPage($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+
+      <p style="text-align: center; margin-top: -200px;" *ngIf="loadInfiniteEnded">Cukup segini hasil pencarian rumah berdasarkan kata kuncimu :)</p>
+
+    </div>
+
+  </div>
+</ion-content>

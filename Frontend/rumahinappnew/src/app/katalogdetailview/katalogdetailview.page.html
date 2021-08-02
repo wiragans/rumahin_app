@@ -1,0 +1,203 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="dashboardPage/home"></ion-back-button><ion-title><b>Detail Katalog Rumah</b></ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="loginPageContainer" style="margin-top: 20px; margin-bottom: 10px;">
+
+    <div class="ion-padding custom-skeleton" *ngIf="!loadedAPI">
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 50%; margin-top: 10px;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 60%; margin-top: 10px;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="margin-top: 20px; padding: 50px;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="margin-top: 20px; padding: 20px;"></ion-skeleton-text>
+
+      <ion-skeleton-text animated style="margin-top: 30px; width: 30%;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="margin-top: 30px; width: 50%;"></ion-skeleton-text>
+
+      <ion-skeleton-text animated style="margin-top: 50px;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="margin-top: 10px;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="margin-top: 10px;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="margin-top: 10px;"></ion-skeleton-text>
+
+      <ion-skeleton-text animated style="margin-top: 30px; padding: 10px;"></ion-skeleton-text>
+    </div>
+
+    <div *ngIf="katalogRumahDitemukan == false && loadedAPI == true">
+      <br>
+      <h3 style="text-align: center;"><b>OOPSSSS...!!!</b></h3>
+      <p style="text-align: center;">Wah, terjadi kesalahan. Tampaknya katalog rumah ini belum di acc oleh Admin, tidak dapat ditemukan, atau sudah tidak tersedia lagi :(</p>
+    </div>
+
+    <div *ngIf="katalogRumahDitemukan == true && loadedAPI == true">
+      <h5 style="text-align: justify;"><b>{{ katalogName }}</b></h5>
+      <small>Dipublikasi pada: {{ tayangTimestampReal }}</small><br><br>
+      <small [innerHTML]="totalDilihat"></small><br>
+      <small><i class="fas fa-map-marker-alt"></i> {{ fixedAlamat }}</small><br>
+      <small> {{ alamatLengkapFull }}</small>
+
+      <ion-text color="dark">
+        <h5>{{ hargaTextLabelAttr }}</h5>
+      </ion-text>
+
+      <div *ngIf="isDisewakan == 1">
+        <small [innerHTML]="modeSewa"></small>
+        <br><br>
+      </div>
+
+      <div class="ion-text-center">
+        <img style="width: 100%; height: 250px;" src="{{ imagesKatalogArrayParsed[0]['path'] }}">
+      </div>
+
+      <carousel *ngIf="imageSlideShowable == true"
+        [images]="imagesKatalogArrayParsed" (click)="showLightbox(0)" style="height: 150px;">
+      </carousel>
+
+      <ng-image-fullscreen-view
+    [images]="imageObject"
+    [imageIndex]="selectedImageIndex"
+    [show]="showFlag"
+    (close)="closeEventHandler()"></ng-image-fullscreen-view>
+
+    <div>
+      
+      <!-- AR VIEW SECTION BUTTON -->
+      
+      <div *ngIf="isUseAR == 1 || useYouTubeVideoUrl == 1">
+        <br><br>
+      </div>
+
+      <div class="outer">
+
+      <div class="inner" *ngIf="isUseAR == 1">
+      <div class="ion-text-center">
+      <ion-icon color="primary" name="cube" style="font-size: 22px;" *ngIf="arButtonClicked == false" (click)="arButtonClickBtn()"></ion-icon>
+      <ion-icon color="danger" name="cube" style="font-size: 22px;" *ngIf="arButtonClicked == true" (click)="arButtonClickBtn2()"></ion-icon>
+      <br>
+      <ion-label color="primary" *ngIf="arButtonClicked == false" (click)="arButtonClickBtn()">3D View</ion-label>
+      <ion-label color="danger" *ngIf="arButtonClicked == true" (click)="arButtonClickBtn2()">3D View</ion-label>
+      </div>
+      </div>
+
+      <div class="inner" style="margin-left: 30px;" *ngIf="useYouTubeVideoUrl == 1">
+      <div class="ion-text-center">
+        <ion-icon color="primary" name="logo-youtube" style="font-size: 22px;" *ngIf="youtubeVideoButtonClicked == false" (click)="youtubeVideoButtonClickBtn()"></ion-icon>
+        <ion-icon color="danger" name="logo-youtube" style="font-size: 22px;" *ngIf="youtubeVideoButtonClicked == true" (click)="youtubeVideoButtonClickBtn2()"></ion-icon>
+        <br>
+        <ion-label color="primary" *ngIf="youtubeVideoButtonClicked == false" (click)="youtubeVideoButtonClickBtn()">Play YouTube Video</ion-label>
+        <ion-label color="danger" *ngIf="youtubeVideoButtonClicked == true" (click)="youtubeVideoButtonClickBtn2()">Play YouTube Video</ion-label>
+        </div>
+        </div>
+
+      </div>
+
+      <!---->
+
+    </div>
+
+    <div *ngIf="youtubeVideoButtonClicked == true">
+    <br><br>
+    <div class="containerYouTubeVideoEmbed">
+      <iframe allowfullscreen="allowfullscreen" class="responsiveIframeYouTubeEmbed" [src]="katalogVideoDataVideoUrl | safe"></iframe>
+    </div>
+    </div>
+
+    <!--<br><br>
+    <youtube-player 
+    videoId="zvRfmn3DT_U" 
+    suggestedQuality="highres" 
+    [height]="250" 
+    [width]="300" 
+    [startSeconds]="4"
+    [endSeconds]="300">
+    </youtube-player>-->
+
+      <p style="border-bottom: solid grey 0.5px"></p>
+
+      <ion-text color="dark" style="margin-top: 30px; margin-bottom: 30px;">
+        <h5 style="font-weight: bold;">Deskripsi:</h5>
+      </ion-text>
+
+      <ion-text color="dark">
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="katalogDesc"></p>
+      </ion-text>
+
+      <p style="border-bottom: solid grey 0.5px"></p>
+
+      <ion-text color="dark" style="margin-top: 30px; margin-bottom: 30px;">
+        <h5 style="font-weight: bold;">Informasi Spesifikasi:</h5>
+      </ion-text>
+
+      <ion-text color="dark">
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="kondisiText"></p>
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="luasTanah"></p>
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="luasBangunan"></p>
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="jumlahKamarMandi"></p>
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="jumlahKamarTidur"></p>
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="jumlahRuangTamu"></p>
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="jumlahGarasi"></p>
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="jumlahRuangKeluarga"></p>
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="jumlahRuangMakan"></p>
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="jumlahDapur"></p>
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="jumlahGudang"></p>
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="jumlahSerambi"></p>
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="jumlahTingkat"></p>
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="tahunDibuat"></p>
+      </ion-text>
+
+      <p style="border-bottom: solid grey 0.5px"></p>
+
+      <ion-text color="dark" style="margin-top: 30px; margin-bottom: 30px;">
+        <h5 style="font-weight: bold;">Informasi Lainnya:</h5>
+      </ion-text>
+
+      <ion-text color="dark">
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="sertifikat"></p>
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="tipePropertiRumahInString"></p>
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="conditionMeasurement"></p>
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="perlengkapanPerabotan"></p>
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="dayaListrik"></p>
+      </ion-text>
+
+      <p style="border-bottom: solid grey 0.5px"></p>
+
+      <ion-text color="dark" style="margin-top: 30px; margin-bottom: 30px;">
+        <h5 style="font-weight: bold;">Informasi Pengembang (Developer):</h5>
+      </ion-text>
+
+      <ion-text color="dark">
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="developerName"></p>
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="developerEmail"></p>
+        <p style="text-align: justify; font-size: 12px;" [innerHTML]="developerWhatsAppNumber"></p>
+      </ion-text>
+      
+      <div class="ion-text-center">
+        <button type="button" (click)="redirectContactPengembangWA()" style="background-color: green; color: white; padding: 10px; width: 100%; font-weight: bold;"><i class="fab fa-whatsapp"></i> {{ developerWhatsAppButtonSimpleText }}</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</ion-content>
+
+<ion-footer *ngIf="katalogRumahDitemukan == true && loadedAPI == true">
+  <div *ngIf="imageSlideShowable == true">
+  <div class="outer">
+    <div class="inner" *ngIf="isThisKatalogBookmarked == 1"><ion-button type="button" (click)="deleteFromBookmarkKatalog()"><i class="far fa-bookmark" style="margin-right: 10px;"></i> Hapus Bookmark</ion-button></div>
+    <div class="inner" *ngIf="isThisKatalogBookmarked == 0"><ion-button type="button" (click)="addToBookmarkKatalog()"><i class="far fa-bookmark" style="margin-right: 10px;"></i> Tambah ke Bookmark</ion-button></div>
+    <div class="inner"><ion-button type="button" [routerLink]="['/dashboardPage/home']"><i class="fas fa-home" style="margin-right: 6px;"></i> Beranda</ion-button></div>
+  </div>
+  </div>
+
+  <div *ngIf="imageSlideShowable == false">
+    <div class="outer">
+      <div class="inner"><ion-button type="button" (click)="closeEventHandler()"><i class="fas fa-images" style="margin-right: 10px;"></i> Tutup Preview Gambar</ion-button></div>
+    </div>
+    </div>
+</ion-footer>

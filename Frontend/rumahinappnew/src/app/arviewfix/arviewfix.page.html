@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="dashboardPage/home" (click)="backHrefBtn()"></ion-back-button><ion-title><b>{{ progressLoading }}</b></ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+  <ion-content style="display: none;">
+    
+    <div style="display: none;" #rendererContainer></div>
+
+    <!--<canvas #myCanvas></canvas>-->
+
+    <canvas id="myCanvas" style="background-image:-webkit-canvas(mask);"></canvas>
+
+    <div style="display: none;" #myCanvas></div>
+
+</ion-content>

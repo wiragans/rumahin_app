@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title><b>Login</b></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!--<ion-item>
+    <ion-label>Dark mode</ion-label>
+    <ion-toggle [(ngModel)]="dark" (ionChange)="updateDarkMode()"></ion-toggle>
+  </ion-item>-->
+
+<div class="loginPageContainer">
+<!--<img class="loginPageRumahIcon" src="../../assets/icon/rumahIcon.png" (click)="enableDarkMode()"><br><br>-->
+<img class="loginPageRumahIcon" src="../../assets/icon/rumahIcon.png"><br><br>
+<h6 style="text-align: center; font-weight: bold;">SELAMAT DATANG<br>SILAKAN LOGIN</h6><br>
+<!-- Input with placeholder -->
+<ion-item>
+  <ion-label position="floating">Username/Email</ion-label>
+  <ion-input name="usernameOrEmail" id="usernameOrEmail" [(ngModel)]="usernameOrEmail"></ion-input>
+</ion-item>
+<br>
+
+<ion-item>
+  <ion-label>Pilih Metode Login</ion-label>
+  <ion-select multiple="false" [(ngModel)]="loginMethod" [value]="['password']" name="loginMethod" id="loginMethod">
+    <ion-select-option value="password">Password</ion-select-option>
+    <ion-select-option value="otp">OTP ke Email</ion-select-option>
+  </ion-select>
+</ion-item>
+<br>
+<ion-button size="block" [disabled]="!usernameOrEmail?.trim() || !loginMethod" (click)="loginRequest()">LANJUTKAN</ion-button><br>
+<p style="text-align: justify; color: red; font-weight: bold;" *ngIf="!statusApi">{{ resultLoginRequest }}</p>
+<p style="text-align: center;"><b>Tidak punya akun?</b></p>
+<p style="text-align: center; text-decoration: underline;" [routerLink]="['/register']"><b>Daftar Di Sini</b></p>
+<ion-button size="block" [routerLink]="['/artestnew']" style="display: none;">AR TEST</ion-button><br>
+</div>
+</ion-content>

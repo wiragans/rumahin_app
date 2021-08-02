@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Render 3D</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div style="display: none;">
+    <webcam [height]="400" 
+            [width]="1000" 
+            [trigger]="triggerObservable"
+                (imageCapture)="handleImage($event)">
+     </webcam>
+      
+    <button class="actionBtn" (click)="triggerSnapshot();">
+        Click Here and take the Shot</button>
+      
+    <div class="snapshot" *ngIf="webcamImage">
+      <h2>Here is your image!</h2>
+      <img [src]="webcamImage.imageAsDataUrl"/>
+    </div>
+    </div>
+
+<img style="display: none;" [src]="base64"/><br><br>
+<button style="display: none;" (click)="takePicture()">SCAN AR</button><br><br>
+<div #rendererContainer></div>
+
+<br><br>
+
+</ion-content>

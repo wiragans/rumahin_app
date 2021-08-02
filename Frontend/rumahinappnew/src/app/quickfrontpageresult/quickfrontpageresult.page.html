@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="dashboardPage/home"></ion-back-button><ion-title><b>Quick Result</b></ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="loginPageContainer" style="margin-top: 50px;">
+  
+    <div class="ion-padding custom-skeleton" *ngIf="katalogLoaded == false">
+      <ion-skeleton-text animated style="width: 100%; padding: 40px;"></ion-skeleton-text><br>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text><br>
+      <ion-skeleton-text animated style="width: 50%; float: right; padding: 6px;"></ion-skeleton-text>
+    </div>
+
+    <div *ngIf="katalogLoaded == true">
+      <div *ngIf="katalogFound == false">
+        <p style="text-align: center;">{{ notifAPIMsg }}</p>
+      </div>
+
+      <div *ngIf="katalogFound == true">
+        <ion-card *ngFor="let dataKatalog of dataArrayRumah; let i = index">
+        
+          <ion-card-content>
+            <img src="{{ dataKatalog.thumbnailImageUrl }}" style="width: 100%; height: 150px;" (click)="viewKatalog(dataKatalog.katalogUUID)">
+            <div (click)="viewKatalog(dataKatalog.katalogUUID)">{{ dataKatalog.katalogName }}</div><br>
+            <div>Luas Bangunan: {{ dataKatalog.luasBangunan }}m²</div>
+            <div>Luas Tanah: {{ dataKatalog.luasTanah }}m²</div>
+
+            <ion-item>
+              <ion-button fill="outline" slot="end" (click)="viewKatalog(dataKatalog.katalogUUID)">Lihat Selengkapnya</ion-button>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+          <ion-infinite-scroll-content
+            loadingSpinner="crescent">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+
+    </div>
+    </div>
+
+  </div>
+
+</ion-content>

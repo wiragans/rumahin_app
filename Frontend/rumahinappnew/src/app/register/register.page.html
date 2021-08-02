@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="login"></ion-back-button><ion-title><b>Register</b></ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<div class="loginPageContainer" style="margin-top: 30px; margin-bottom: 30px;">
+<form>
+<h6 style="text-align: center; font-weight: bold;">FORM REGISTRASI AKUN</h6><br>
+<ion-item>
+  <ion-label position="floating">Nama Lengkap</ion-label>
+  <ion-input type="text" name="namaLengkap" id="namaLengkap" [(ngModel)]="namaLengkap" maxlength="64"></ion-input>
+</ion-item>
+<br>
+<ion-item>
+  <ion-label position="floating">Username</ion-label>
+  <ion-input type="text" name="username" id="username" [(ngModel)]="username" maxlength="32"></ion-input>
+</ion-item>
+<br>
+<ion-item>
+  <ion-label position="floating">Email</ion-label>
+  <ion-input type="email" name="email" id="email" [(ngModel)]="email" maxlength="64"></ion-input>
+</ion-item>
+<br>
+<ion-item>
+  <ion-label position="floating">Password</ion-label>
+  <ion-input type="password" name="password" id="password" [(ngModel)]="password" maxlength="32"></ion-input>
+</ion-item>
+<br>
+<ion-item>
+  <ion-label position="floating">Ulangi Password</ion-label>
+  <ion-input type="password" name="repeatPassword" id="repeatPassword" [(ngModel)]="repeatPassword" maxlength="32"></ion-input>
+</ion-item>
+<br>
+<ion-item>
+  <ion-label position="fixed">+62</ion-label>
+  <ion-input type="number" name="nomorWA" id="nomorWA" [(ngModel)]="nomorWA" onKeyPress="if(this.value.length== this.maxlength) return false;" placeholder="Nomor WhatsApp (WA)"></ion-input>
+</ion-item>
+<br>
+<ion-item>
+  <ion-label position="floating">Alamat Lengkap</ion-label>
+  <ion-textarea style="resize: vertical; max-height: 200px;" name="alamat" id="alamat" [(ngModel)]="alamat" maxlength="255"></ion-textarea>
+</ion-item>
+<br>
+<ion-button size="block" [disabled]="!namaLengkap?.trim() || !email?.trim() || !username?.trim() || !password?.trim() || !repeatPassword?.trim() || !nomorWA || !alamat?.trim()" (click)="registerProcess()">KIRIM DATA REGISTRASI</ion-button><br>
+<p style="text-align: center; font-weight: bold; color: red;" *ngIf="!statusApi">{{ resultText }}</p>
+<p style="text-align: center; font-weight: bold;" [routerLink]="['/login']">Sudah punya akun? Login Di Sini</p>
+</form>
+</div>
+</ion-content>

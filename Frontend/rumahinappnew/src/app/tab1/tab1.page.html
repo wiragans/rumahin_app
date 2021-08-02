@@ -1,0 +1,108 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title style="font-size: 14px; margin-top: 10px;">
+      <ion-skeleton-text animated style="width: 50%; display: inline-block;" *ngIf="!profileLoaded"></ion-skeleton-text><b *ngIf="profileLoaded">{{ namaLengkap.toUpperCase() }}</b>
+      <ion-icon style="font-size: 25px; float: right; margin-left: 15px; margin-top: -2px;" name="notifications-outline" [routerLink]="['/notificationarea']"></ion-icon>
+      <!--<ion-icon style="font-size: 25px; float: right; margin-left: 15px; margin-top: -2px;" name="mail-outline" [routerLink]="['/messagearea']"></ion-icon>-->
+      <ion-icon style="font-size: 25px; float: right; margin-left: 15px; margin-top: -2px;" name="storefront-outline" [routerLink]="['/katalogmanagementmenu']"></ion-icon>
+      <!--<ion-icon style="font-size: 25px; float: right; margin-left: 15px; margin-top: -2px;" name="storefront-outline" [routerLink]="['/addkatalogpage']"></ion-icon>-->
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Tab 1</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!--<app-explore-container name="Tab 1 page"></app-explore-container>-->
+
+  <div class="loginPageContainer" style="margin-top: 50px; margin-bottom: -100px;">
+    <div class="ion-text-center">
+      <ion-icon style="font-size: 30px; margin-right: 20px;" name="search-outline" [routerLink]="['/katalog-search-query-page']"></ion-icon> <ion-icon style="font-size: 30px;" [routerLink]="['/rekomendasisaw']" name="help-outline"></ion-icon>
+    </div>
+
+  <div style="margin-bottom: 60px;">
+    <h5 style="float: left; display: inline;"><b>POPULAR</b></h5>
+    <p style="float: right; display: inline; margin-right: 20px; margin-top: 18px;">View More</p>
+  </div>
+  
+   <!--<carousel arrows="false" arrowsOutside="false" [images]="images">
+  </carousel>-->
+
+  <div class="ion-padding custom-skeleton" *ngIf="!popularLoaded && !connectionErrorPopularKatalog">
+    <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+  </div>
+
+  <div class="ion-text-center" *ngIf="connectionErrorPopularKatalog">
+    <ion-icon style="font-size: 40px;" name="wifi-outline"></ion-icon><br>
+    <h6><b>Koneksi Bermasalah. Silakan klik Refresh</b></h6>
+    <ion-button (click)="loadPopularKatalog()">Refresh</ion-button>
+  </div>
+
+    <ion-slides pager="true" [options]="slideOpts" *ngIf="popularLoaded">
+
+      <ion-slide style="margin-left: 4px;" *ngFor="let bacaPopularKatalog of popularKatalogResult; let i = index">
+        <div class="item">
+          <img (click)="katalogViewDetail(bacaPopularKatalog.katalogUUID)" src="{{ bacaPopularKatalog.katalogImageUrl }}"/><div class="hargaBadge">{{ bacaPopularKatalog.priceStr }}</div><br><br>
+          <span (click)="katalogViewDetail(bacaPopularKatalog.katalogUUID)"><b>{{ bacaPopularKatalog.katalogName }}</b></span><br><br>
+          <small (click)="katalogViewDetail(bacaPopularKatalog.katalogUUID)" style="text-align: justify;" [innerHTML]="bacaPopularKatalog.katalogDesc"></small><br><br>
+          <small (click)="katalogViewDetail(bacaPopularKatalog.katalogUUID)" style="text-align: justify;"><b>Alamat:</b> {{ bacaPopularKatalog.alamat }}</small><br>
+          <small (click)="katalogViewDetail(bacaPopularKatalog.katalogUUID)" style="text-align: justify;"><b>Luas Bangunan:</b> {{ bacaPopularKatalog.luasBangunan }}m²</small><br>
+          <small (click)="katalogViewDetail(bacaPopularKatalog.katalogUUID)" style="text-align: justify;"><b>Luas Tanah:</b> {{ bacaPopularKatalog.luasTanah }}m²</small>
+        </div>
+      </ion-slide>
+
+    </ion-slides><br>
+
+    <!--NEWEST KATALOG-->
+
+    <div style="margin-bottom: 60px;">
+      <h5 style="float: left; display: inline;"><b>TERBARU</b></h5>
+      <p style="float: right; display: inline; margin-right: 20px; margin-top: 18px;">View More</p>
+    </div>
+
+    <div class="ion-padding custom-skeleton" *ngIf="!newestLoaded && !connectionErrorNewestKatalog">
+      <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+    </div>
+
+    <div class="ion-text-center" *ngIf="connectionErrorNewestKatalog">
+      <ion-icon style="font-size: 40px;" name="wifi-outline"></ion-icon><br>
+      <h6><b>Koneksi Bermasalah. Silakan klik Refresh</b></h6>
+      <ion-button (click)="loadNewestKatalog()">Refresh</ion-button>
+    </div>
+
+    <ion-slides pager="true" [options]="slideOpts" *ngIf="newestLoaded">
+
+      <ion-slide style="margin-left: 4px;" *ngFor="let bacaNewestKatalog of newestKatalogResult; let i = index">
+        <div class="item">
+          <img (click)="katalogViewDetail(bacaNewestKatalog.katalogUUID)" src="{{ bacaNewestKatalog.katalogImageUrl }}"/><div class="hargaBadge">{{ bacaNewestKatalog.priceStr }}</div><br><br>
+          <span (click)="katalogViewDetail(bacaNewestKatalog.katalogUUID)"><b>{{ bacaNewestKatalog.katalogName }}</b></span><br><br>
+          <small (click)="katalogViewDetail(bacaNewestKatalog.katalogUUID)" style="text-align: justify;" [innerHTML]="bacaNewestKatalog.katalogDesc"></small><br><br>
+          <small (click)="katalogViewDetail(bacaNewestKatalog.katalogUUID)" style="text-align: justify;"><b>Alamat:</b> {{ bacaNewestKatalog.alamat }}</small><br>
+          <small (click)="katalogViewDetail(bacaNewestKatalog.katalogUUID)" style="text-align: justify;"><b>Luas Bangunan:</b> {{ bacaNewestKatalog.luasBangunan }}m²</small><br>
+          <small (click)="katalogViewDetail(bacaNewestKatalog.katalogUUID)" style="text-align: justify;"><b>Luas Tanah:</b> {{ bacaNewestKatalog.luasTanah }}m²</small>
+        </div>
+      </ion-slide>
+
+    </ion-slides>
+
+  </div>
+
+</ion-content>

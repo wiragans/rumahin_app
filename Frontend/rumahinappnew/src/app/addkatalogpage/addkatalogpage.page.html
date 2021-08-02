@@ -1,0 +1,486 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="dashboardPage/home"></ion-back-button><ion-title><b>Tambah Katalog</b></ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="loginPageContainer" style="margin-top: 50px; margin-bottom: 50px;">
+
+    <p style="text-align: center;"><b>Mohon lengkapi form pendataan di bawah ini!</b></p><br>
+
+    <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">      
+      
+      <ion-item>
+        <ion-label position="floating">Nama Katalog Rumah</ion-label>
+        <ion-input type="text" formControlName="katalogName" name="katalogName" id="katalogName" minlength="10" maxlength="128" (ngModelChange)="onKatalogNameChange($event)"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.katalogName.touched && formValidatornya.katalogName.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.katalogName.errors.required">Rumpang nama katalog rumah diperlukan</div>
+        <div *ngIf="formValidatornya.katalogName.errors.minlength">Nama katalog minimal 10 karakter.</div>
+        <div *ngIf="formValidatornya.katalogName.errors.maxlength">Nama katalog maksimal 128 karakter</div>
+      </div><br>
+
+      <!---->
+
+      <ion-item>
+        <ion-label position="floating">Deskripsi Katalog Rumah</ion-label>
+        <ion-textarea formControlName="katalogDesc" name="katalogDesc" id="katalogDesc" (ngModelChange)="onKatalogDescriptionChange($event)"></ion-textarea>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.katalogDesc.touched && formValidatornya.katalogDesc.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.katalogDesc.errors.required">Rumpang deskripsi katalog rumah diperlukan</div>
+      </div><br>
+
+      <!---->
+
+      <ion-item>
+        <ion-label position="floating">Luas Tanah (Tdk Wajib)</ion-label>
+        <ion-input type="number" formControlName="luasTanah" name="luasTanah" id="luasTanah" (ngModelChange)="onLuasTanahChange($event)"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.luasTanah.touched && formValidatornya.luasTanah.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.luasTanah.errors.required">Rumpang luas tanah diperlukan</div>
+      </div><br>
+
+      <!---->
+
+      <ion-item>
+        <ion-label position="floating">Luas Bangunan (Tdk Wajib)</ion-label>
+        <ion-input type="number" formControlName="luasBangunan" name="luasBangunan" id="luasBangunan" (ngModelChange)="onLuasBangunanChange($event)"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.luasBangunan.touched && formValidatornya.luasBangunan.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.luasBangunan.errors.required">Rumpang luas bangunan diperlukan.</div>
+      </div><br>
+
+      <!---->
+
+      <ion-item>
+        <ion-label position="floating">Jumlah Kamar Mandi</ion-label>
+        <ion-input type="number" formControlName="jumlahKamarMandi" name="jumlahKamarMandi" id="jumlahKamarMandi" (ngModelChange)="onJumlahKamarMandiChange($event)"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.jumlahKamarMandi.touched && formValidatornya.jumlahKamarMandi.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.jumlahKamarMandi.errors.required">Rumpang jumlah kamar mandi diperlukan. Isi 0 untuk mengosongkan</div>
+      </div><br>
+
+      <!---->
+
+      <ion-item>
+        <ion-label position="floating">Jumlah Kamar Tidur</ion-label>
+        <ion-input type="number" formControlName="jumlahKamarTidur" name="jumlahKamarTidur" id="jumlahKamarTidur" (ngModelChange)="onJumlahKamarTidurChange($event)"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.jumlahKamarTidur.touched && formValidatornya.jumlahKamarTidur.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.jumlahKamarTidur.errors.required">Rumpang jumlah kamar tidur diperlukan. Isi 0 untuk mengosongkan</div>
+      </div><br>
+
+      <!---->
+
+      <ion-item>
+        <ion-label position="floating">Jumlah Ruang Tamu</ion-label>
+        <ion-input type="number" formControlName="jumlahRuangTamu" name="jumlahRuangTamu" id="jumlahRuangTamu" (ngModelChange)="onJumlahRuangTamuChange($event)"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.jumlahRuangTamu.touched && formValidatornya.jumlahRuangTamu.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.jumlahRuangTamu.errors.required">Rumpang jumlah ruang tamu diperlukan. Isi 0 untuk mengosongkan</div>
+      </div><br>
+
+      <!---->
+
+      <ion-item>
+        <ion-label position="floating">Jumlah Garasi</ion-label>
+        <ion-input type="number" formControlName="jumlahGarasi" name="jumlahGarasi" id="jumlahGarasi" (ngModelChange)="onJumlahGarasiChange($event)"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.jumlahGarasi.touched && formValidatornya.jumlahGarasi.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.jumlahGarasi.errors.required">Rumpang jumlah garasi diperlukan. Isi 0 untuk mengosongkan</div>
+      </div><br>
+
+      <!---->
+
+      <ion-item>
+        <ion-label position="floating">Jumlah Ruang Keluarga</ion-label>
+        <ion-input type="number" formControlName="jumlahRuangKeluarga" name="jumlahRuangKeluarga" id="jumlahRuangKeluarga" (ngModelChange)="onJumlahRuangKeluargaChange($event)"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.jumlahRuangKeluarga.touched && formValidatornya.jumlahRuangKeluarga.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.jumlahRuangKeluarga.errors.required">Rumpang jumlah ruang keluarga diperlukan. Isi 0 untuk mengosongkan</div>
+      </div><br>
+
+      <!---->
+
+      <ion-item>
+        <ion-label position="floating">Jumlah Ruang Makan</ion-label>
+        <ion-input type="number" formControlName="jumlahRuangMakan" name="jumlahRuangMakan" id="jumlahRuangMakan" (ngModelChange)="onJumlahRuangMakanChange($event)"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.jumlahRuangMakan.touched && formValidatornya.jumlahRuangMakan.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.jumlahRuangMakan.errors.required">Rumpang jumlah ruang makan diperlukan. Isi 0 untuk mengosongkan</div>
+      </div><br>
+
+      <!---->
+
+      <ion-item>
+        <ion-label position="floating">Jumlah Dapur</ion-label>
+        <ion-input type="number" formControlName="jumlahDapur" name="jumlahDapur" id="jumlahDapur" (ngModelChange)="onJumlahDapurChange($event)"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.jumlahDapur.touched && formValidatornya.jumlahDapur.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.jumlahDapur.errors.required">Rumpang jumlah dapur diperlukan. Isi 0 untuk mengosongkan</div>
+      </div><br>
+
+      <!---->
+
+      <ion-item>
+        <ion-label position="floating">Jumlah Gudang</ion-label>
+        <ion-input type="number" formControlName="jumlahGudang" name="jumlahGudang" id="jumlahGudang" (ngModelChange)="onJumlahGudangChange($event)"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.jumlahGudang.touched && formValidatornya.jumlahGudang.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.jumlahGudang.errors.required">Rumpang jumlah gudang diperlukan. Isi 0 untuk mengosongkan</div>
+      </div><br>
+
+      <!---->
+
+      <ion-item>
+        <ion-label position="floating">Jumlah Serambi</ion-label>
+        <ion-input type="number" formControlName="jumlahSerambi" name="jumlahSerambi" id="jumlahSerambi" (ngModelChange)="onJumlahSerambiChange($event)"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.jumlahSerambi.touched && formValidatornya.jumlahSerambi.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.jumlahSerambi.errors.required">Rumpang jumlah serambi diperlukan. Isi 0 untuk mengosongkan</div>
+      </div><br>
+
+      <!---->
+
+      <ion-item>
+        <ion-label position="floating">Jumlah Tingkat/Lantai</ion-label>
+        <ion-input type="number" formControlName="jumlahTingkat" name="jumlahTingkat" id="jumlahTingkat" (ngModelChange)="onJumlahTingkatChange($event)"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.jumlahTingkat.touched && formValidatornya.jumlahTingkat.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.jumlahTingkat.errors.required">Rumpang jumlah tingkat/lantai diperlukan. Misal: 1</div>
+      </div>
+
+      <!---->
+
+      <br>
+      <ion-item>
+        <ion-label position="floating">Tahun Dibuat (Tdk Wajib)</ion-label>
+        <ion-input type="number" formControlName="tahunDibuat" name="tahunDibuat" id="tahunDibuat" (ngModelChange)="onTahunDibuatChange($event)"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.tahunDibuat.touched && formValidatornya.tahunDibuat.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.tahunDibuat.errors.required">Rumpang tahun dibuat diperlukan. Misal: 2021</div>
+      </div>
+
+      <!---->
+
+      <br>
+      <ion-item>
+        <ion-checkbox color="primary" checked="false" formControlName="isDisewakanCheckBox" [(ngModel)]="isDisewakan" (ngModelChange)="onIsDisewakanCheckBox($event)"></ion-checkbox>
+        <ion-label style="margin-left: 10px;">Apakah Disewakan?</ion-label>  
+      </ion-item>
+
+      <!---->
+
+      <div *ngIf="isDisewakan == true">
+        <br>
+        <ion-item>
+          <ion-label position="floating">Jelaskan Sistem Sewa</ion-label>
+          <ion-textarea formControlName="modeSewa" name="modeSewa" id="modeSewa" [(ngModel)]="modeSewaValue" (ngModelChange)="onModeSewaChange($event)"></ion-textarea>
+        </ion-item>
+  
+        <div *ngIf="formValidatornya.modeSewa.touched && formValidatornya.modeSewa.invalid" style="margin-top: 10px; color: red;">
+          <div *ngIf="formValidatornya.modeSewa.errors.required">Rumpang penjelasan sistem sewa rumah (properti) diperlukan. Misal harganya adalah Rp. 600.000 / bulan</div>
+        </div>
+        </div>
+
+      <!---->
+
+      <br>
+      <ion-item>
+        <ion-label position="floating" *ngIf="isDisewakan == false">Harga Jual</ion-label>
+        <ion-label position="floating" *ngIf="isDisewakan == true">Harga Sewa</ion-label>
+        <ion-input type="number" formControlName="harga" name="harga" id="harga" (ngModelChange)="onHargaChange($event)"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.harga.touched && formValidatornya.harga.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.harga.errors.required">Rumpang harga diperlukan</div>
+      </div><br>
+
+      <!---->
+
+      <ion-item>
+        <ion-label position="floating">Nama Pengembang</ion-label>
+        <ion-input type="text" formControlName="developerName" name="developerName" id="developerName" (ngModelChange)="onDeveloperNameChange($event)"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.developerName.touched && formValidatornya.developerName.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.developerName.errors.required">Rumpang Nama Pengembang (Developer) diperlukan</div>
+      </div><br>
+
+      <!---->
+
+      <ion-item>
+        <ion-label position="floating">Email Pengembang (Tdk Wajib)</ion-label>
+        <ion-input type="email" formControlName="developerEmail" name="developerEmail" id="developerEmail" (ngModelChange)="onDeveloperEmailChange($event)"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.developerEmail.touched && formValidatornya.developerEmail.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.developerEmail.errors.required">Rumpang Email Pengembang (Developer) diperlukan</div>
+      </div><br>
+
+      <!---->
+
+      <ion-item>
+        <ion-label position="floating">WhatsApp Number</ion-label>
+        <ion-input type="text" formControlName="contactNumber" name="contactNumber" id="contactNumber" [(ngModel)]="contactNumberGet" (ngModelChange)="onContactNumberChange($event)"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.contactNumber.touched && formValidatornya.contactNumber.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.contactNumber.errors.required">Rumpang WhatsApp Number diperlukan</div>
+      </div><br>
+
+      <!---->
+
+      <ion-item>
+        <ion-label>Provinsi</ion-label>
+        <ion-select interface="action-sheet" placeholder="Pilih Provinsi" formControlName="provinsiSelectBox" [(ngModel)]="provinsiID" (ngModelChange)="onProvinsiSelectBox($event)">
+          <ion-select-option *ngFor="let dataProvinsi of arrayProvinsiData; let i = index" value="{{ dataProvinsi.id }}">{{ dataProvinsi.nama }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <br>
+      <ion-item>
+        <ion-label>Kab/Kota</ion-label>
+        <ion-select interface="action-sheet" placeholder="Pilih Kab/Kota" formControlName="kabupatenSelectBox" [disabled]="!provinsiID?.trim()" [(ngModel)]="kabupatenID" (ngModelChange)="onKabupatenSelectBox($event)">
+          <ion-select-option *ngFor="let dataKabupaten of arrayKabupatenData; let i = index" value="{{ dataKabupaten.id }}">{{ dataKabupaten.nama }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <br>
+      <ion-item>
+        <ion-label>Kecamatan</ion-label>
+        <ion-select interface="action-sheet" placeholder="Pilih Kecamatan" formControlName="kecamatanSelectBox" [disabled]="!kabupatenID?.trim()" [(ngModel)]="kecamatanID" (ngModelChange)="onKecamatanSelectBox($event)">
+          <ion-select-option *ngFor="let dataKecamatan of arrayKecamatanData; let i = index" value="{{ dataKecamatan.id }}">{{ dataKecamatan.nama }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <br>
+      <ion-item>
+        <ion-label>Desa/Kel</ion-label>
+        <ion-select interface="action-sheet" placeholder="Pilih Desa/Kel" formControlName="desaSelectBox" [disabled]="!kecamatanID?.trim()" [(ngModel)]="desaID" (ngModelChange)="onDesaSelectBox($event)">
+          <ion-select-option *ngFor="let dataDesa of arrayDesaData; let i = index" value="{{ dataDesa.id }}">{{ dataDesa.nama }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!---->
+
+      <br>
+      <ion-item>
+        <ion-label position="floating">Alamat Rumah (Properti) Lengkap</ion-label>
+        <ion-textarea formControlName="alamat" name="alamat" id="alamat" [(ngModel)]="alamatGet" (ngModelChange)="onAlamatChange($event)"></ion-textarea>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.alamat.touched && formValidatornya.alamat.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.alamat.errors.required">Rumpang alamat rumah (properti) lengkap diperlukan</div>
+      </div>
+
+      <!---->
+
+      <br>
+      <ion-item>
+        <ion-label>Jenis Sertifikat</ion-label>
+        <ion-select interface="action-sheet" placeholder="Jenis Sertifikat" formControlName="sertifikatTypeSelectBox" [(ngModel)]="sertifikatCode" (ngModelChange)="onSertifikatTypeSelectBox($event);">
+          <ion-select-option *ngFor="let dataJenisSertifikat of arrayJenisSertifikat; let i = index" value="{{ dataJenisSertifikat.sertifikatCode + ',' + dataJenisSertifikat.needManualInput }}">{{ dataJenisSertifikat.sertifikatName }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!---->
+
+      <div *ngIf="needManualInputSertifikatNameInputOpen">
+      <br>
+      <ion-item>
+        <ion-label position="floating">Nama Sertifikat</ion-label>
+        <ion-input type="text" formControlName="sertifikatNameInput" name="sertifikatNameInput" id="sertifikatNameInput" (ngModelChange)="onSertifikatNameChange($event)"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValidatornya.sertifikatNameInput.touched && formValidatornya.sertifikatNameInput.invalid" style="margin-top: 10px; color: red;">
+        <div *ngIf="formValidatornya.sertifikatNameInput.errors.required">Rumpang nama sertifikat diperlukan</div>
+      </div>
+      </div><br>
+
+      <!---->
+
+      <ion-item>
+        <ion-label>Tipe Rumah (Properti)</ion-label>
+        <ion-select interface="action-sheet" placeholder="Pilih Tipe Rumah (Properti)" formControlName="rumahTipeSelectBox" [(ngModel)]="rumahTipe" (ngModelChange)="onRumahTipeSelectBox($event)">
+          <ion-select-option *ngFor="let tipeRumah of arrayKodeTipeRumah; let i = index" value="{{ tipeRumah.kodeTipeRumah }}">{{ tipeRumah.shortName }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!---->
+
+      <br>
+      <ion-item>
+        <ion-label>Kondisi Rumah (Properti)</ion-label>
+        <ion-select interface="action-sheet" placeholder="Mohon Pilih" formControlName="kondisiRumahSelectBox" [(ngModel)]="kondisiRumah" (ngModelChange)="onKondisiRumahSelectBox($event)">
+          <ion-select-option value="0">Baru</ion-select-option>
+          <ion-select-option value="1">Bekas/Second</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!---->
+
+        <br>
+        <ion-item>
+          <ion-label position="floating">Daya Listrik Watt (Opsional)</ion-label>
+          <ion-input type="number" formControlName="dayaListrik" name="dayaListrik" id="dayaListrik" [(ngModel)]="dayaListrikGet" (ngModelChange)="onDayaListrikChange($event)"></ion-input>
+        </ion-item>
+  
+        <div *ngIf="formValidatornya.dayaListrik.touched && formValidatornya.dayaListrik.invalid" style="margin-top: 10px; color: red;">
+          <div *ngIf="formValidatornya.dayaListrik.errors.required">Rumpang daya listrik (watt) diperlukan</div>
+        </div>
+
+      <!---->
+
+      <br>
+        <ion-item>
+          <ion-label position="floating">Perlengkapan Perabotan</ion-label>
+          <ion-input type="text" formControlName="perlengkapanPerabotan" name="perlengkapanPerabotan" id="perlengkapanPerabotan" [(ngModel)]="perlengkapanPerabotanGet" (ngModelChange)="onPerlengkapanPerabotanChange($event)"></ion-input>
+        </ion-item>
+  
+        <div *ngIf="formValidatornya.perlengkapanPerabotan.touched && formValidatornya.perlengkapanPerabotan.invalid" style="margin-top: 10px; color: red;">
+          <div *ngIf="formValidatornya.perlengkapanPerabotan.errors.required">Rumpang Perlengkapan Perabotan diperlukan</div>
+        </div>
+
+      <!---->
+
+      <br>
+        <ion-item>
+          <ion-label position="floating">Pemastian Kondisi</ion-label>
+          <ion-input type="text" formControlName="conditionMeasurement" name="conditionMeasurement" id="conditionMeasurement" [(ngModel)]="conditionMeasurementGet" (ngModelChange)="onConditionMeasurementChange($event)"></ion-input>
+        </ion-item>
+  
+        <div *ngIf="formValidatornya.conditionMeasurement.touched && formValidatornya.conditionMeasurement.invalid" style="margin-top: 10px; color: red;">
+          <div *ngIf="formValidatornya.conditionMeasurement.errors.required">Rumpang Pemastiakn kondisi diperlukan, misal: kalau siang agak terasa panas</div>
+        </div>
+
+        <!---->
+
+        <br>
+        <label for="katalogImages">Gambar Rumah (Max 10 Gambar @5MB)</label>
+          <ion-input 
+              formControlName="katalogImages"
+              id="katalogImages" 
+              type="file" 
+              multiple
+              accept="image/png, image/gif, image/jpeg, image/jpg"
+              class="form-control"
+              (change)="onFileChange($event)"></ion-input>
+          <div style="color: red;" *ngIf="formValidatornya.katalogImages.touched && formValidatornya.katalogImages.invalid" class="alert alert-danger">
+              <div *ngIf="formValidatornya.katalogImages.errors.required">Gambar Rumah Diperlukan.</div>
+          </div>
+
+        <!---->
+
+        <br>
+        <ion-item>
+          <ion-label position="floating">Link Video YouTube (tdk wajib)</ion-label>
+          <ion-input type="text" formControlName="youtubeVideoKatalog" name="youtubeVideoKatalog" id="youtubeVideoKatalog" [(ngModel)]="youtubeVideoKatalogGet" (ngModelChange)="onYoutubeVideoKatalogChange($event)"></ion-input>
+        </ion-item>
+  
+        <div *ngIf="formValidatornya.youtubeVideoKatalog.touched && formValidatornya.youtubeVideoKatalog.invalid" style="margin-top: 10px; color: red;">
+          <div *ngIf="formValidatornya.youtubeVideoKatalog.errors.required">Rumpang Link Video Katalog YouTube Diperlukan.</div>
+        </div>
+
+        <!---->
+
+        <!--<div class="containerVideo">
+          <iframe class="responsiveContainerVideo-iframe" src="https://www.youtube.com/embed/lXsqxc3xoyI"></iframe>
+        </div>-->
+
+        <br>
+      <ion-item>
+        <ion-checkbox color="primary" checked="false" formControlName="useAR" [(ngModel)]="useARGet" (ngModelChange)="onUseARCheckBox($event)"></ion-checkbox>
+        <ion-label style="margin-left: 10px;">Ingin Menggunakan AR View?</ion-label>  
+      </ion-item>
+
+      <!---->
+
+      <div *ngIf="showARInputForm">
+
+        <br>
+        <ion-item>
+          <ion-label position="floating">Link FBX File</ion-label>
+          <ion-input type="text" formControlName="ARFBXFile" name="ARFBXFile" id="ARFBXFile" [(ngModel)]="ARFBXFileGet" (ngModelChange)="onARFBXFileChange($event)"></ion-input>
+        </ion-item>
+  
+        <div *ngIf="formValidatornya.ARFBXFile.touched && formValidatornya.ARFBXFile.invalid" style="margin-top: 10px; color: red;">
+          <div *ngIf="formValidatornya.ARFBXFile.errors.required">Rumpang Link FBX File (3D Model) Diperlukan.</div>
+        </div>
+
+        <br>
+        <ion-item>
+          <ion-label position="floating">Link FBX Diffuse Texture</ion-label>
+          <ion-input type="text" formControlName="ARFBXFileDiffuseTexture" name="ARFBXFileDiffuseTexture" id="ARFBXFileDiffuseTexture" [(ngModel)]="ARFBXFileDiffuseTextureGet" (ngModelChange)="onARFBXFileDiffuseTextureChange($event)"></ion-input>
+        </ion-item>
+  
+        <div *ngIf="formValidatornya.ARFBXFileDiffuseTexture.touched && formValidatornya.ARFBXFileDiffuseTexture.invalid" style="margin-top: 10px; color: red;">
+          <div *ngIf="formValidatornya.ARFBXFileDiffuseTexture.errors.required">Rumpang Link FBX Diffuse Texture Diperlukan.</div>
+        </div>
+
+        <br>
+        <ion-item>
+          <ion-label position="floating">Link Gambar Marker AR</ion-label>
+          <ion-input type="text" formControlName="ARMarkerImage" name="ARMarkerImage" id="ARMarkerImage" [(ngModel)]="ARMarkerImageGet" (ngModelChange)="onARMarkerImageTextureChange($event)"></ion-input>
+        </ion-item>
+  
+        <div *ngIf="formValidatornya.ARMarkerImage.touched && formValidatornya.ARMarkerImage.invalid" style="margin-top: 10px; color: red;">
+          <div *ngIf="formValidatornya.ARMarkerImage.errors.required">Rumpang Link Gambar Marker AR Diperlukan.</div>
+        </div>
+
+      </div>
+
+      <!--<div class="form-group">
+        <label for="katalogName">Name</label>
+        <input 
+            formControlName="katalogName"
+            id="katalogName" 
+            type="text"
+            (ngModelChange)="onKatalogNameChange($event)"
+            class="form-control">
+        <div *ngIf="formValidatornya.katalogName.touched && formValidatornya.katalogName.invalid" class="alert alert-danger">
+            <div *ngIf="formValidatornya.katalogName.errors.required">Name is required.</div>
+            <div *ngIf="formValidatornya.katalogName.errors.minlength">Name should be 3 character.</div>
+        </div>
+      </div>-->
+
+      <!--<div class="form-group">
+          <label for="katalogImages">File</label>
+          <input 
+              formControlName="katalogImages"
+              id="katalogImages" 
+              type="file" 
+              multiple
+              class="form-control"
+              (change)="onFileChange($event)">
+          <div *ngIf="formValidatornya.katalogImages.touched && formValidatornya.katalogImages.invalid" class="alert alert-danger">
+              <div *ngIf="formValidatornya.katalogImages.errors.required">File is required.</div>
+          </div>
+      </div>-->
+
+      <!--<button class="btn btn-primary" type="submit">Submit</button>-->
+      <br><ion-button size="block" type="submit">TAMBAHKAN KATALOG</ion-button>
+
+    </form>
+  </div>
+
+</ion-content>
