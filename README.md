@@ -1,7 +1,7 @@
 # RumahinApp Source Code
 Aplikasi berbasis Smartphone Android ini digunakan untuk pemilihan rumah tinggal dengan dibekali teknologi Augmented Reality (AR) dan terimplementasi metode Simple Additive Weighting (SAW).
 
-Download contoh apk yang sudah kami build di sini : https://s.id/CAMGe
+Download contoh apk yang sudah kami build di sini : https://drive.google.com/file/d/1TePx3goZt2XrgcAuoh1Maq3uRCzK1281/view?usp=sharing
 
 Copyright 2021 by Wira Dwi Susanto. All rights reserved.
 Dilarang memplagiat program ini.
