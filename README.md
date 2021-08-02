@@ -24,7 +24,7 @@ Pastikan sudah terinstall pada sistem Anda:
 2. Angular 10+
 3. PHP 7.4
 4. Node.js Terbaru
-5. Install ThreeJS & ThreeAR melalui NPM
+5. Install ThreeJS & ThreeAR melalui NPM (Jika ada error, mungkin bisa coba gunakan modified script dari kami, unduh: https://drive.google.com/file/d/1xPNq_lBZlHfQttB4QudeibQ6jHtCDnJi/view?usp=sharing) reeplace folder three dan threear ke node_modules
 6. Update Android WebView ke versi terbaru di Google Playstore agar Augmented Reality (AR) dapat berjalan dengan baik.
 
 Dokumentasi ThreeAR: https://github.com/JamesLMilner/THREEAR
