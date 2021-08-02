@@ -23,7 +23,7 @@ Pastikan sudah terinstall pada sistem Anda:
 1. Ionic 5+
 2. Angular 10+
 3. PHP 7.4
-4. NodeJS Terbaru
+4. Node.js Terbaru
 5. Install ThreeJS & ThreeAR melalui NPM
 6. Update Android WebView ke versi terbaru di Google Playstore agar Augmented Reality (AR) dapat berjalan dengan baik.
 
